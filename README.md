@@ -21,6 +21,7 @@ $$\Delta f_\mathrm{NCO} = \frac{f_\mathrm{clock}}{2^P}
 corresponding to an equivalent cavity-displacement code step of
 approximately 10 pm for the 59.0 cm measurement cavity described
 in the paper.
+This is divided by two on nearest-neighbor rounding.
 
 ---
 
