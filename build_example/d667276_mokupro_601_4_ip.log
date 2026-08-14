@@ -1,0 +1,67 @@
+#-----------------------------------------------------------
+# Vivado v2022.2_AR000035739_AR000034905 (64-bit)
+# SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Fri Aug 14 17:34:13 2026
+# Process ID: 3695887
+# Current directory: /workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/output
+# Command line: vivado -log ip.log -nojournal -mode batch -source /deps/compile/scripts/tcl/ip.tcl -tclargs xczu9eg-ffvc900-2-e /deps/compile /workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/src
+# Log file: /workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/output/ip.log
+# Journal file: 
+# Running On: mcc-workers-74d68884bd-cxrrf, OS: Linux, CPU Frequency: 3393.622 MHz, CPU Physical cores: 28, Host memory: 118146 MB
+#-----------------------------------------------------------
+source /deps/compile/scripts/tcl/ip.tcl
+# set HG_PART [lindex $argv 0]
+# set TOP_DIR [lindex $argv 1]
+# set SRC_DIR [lindex $argv 2]
+# set_part $HG_PART
+INFO: [Coretcl 2-1500] The part has been set to 'xczu9eg-ffvc900-2-e' for the current project only. Run set_part -help for more details. To evaluate different speed grades in the current design, use the set_speed_grade command, or use the open_checkpoint -part command to change the part used by an existing checkpoint design.
+# source $TOP_DIR/utilities/utilities.tcl
+## proc findFiles { basedir pattern } {
+## 
+##     # Fix the directory name, this ensures the directory name is in the
+##     # native format for the platform and contains a final directory seperator
+##     set basedir [string trimright [file join [file normalize $basedir] { }]]
+##     set fileList {}
+## 
+##     # Look in the current directory for matching files, -type {f r}
+##     # means ony readable normal files are looked at, -nocomplain stops
+##     # an error being thrown if the returned list is empty
+##     foreach fileName [glob -nocomplain -type {f r} -path $basedir $pattern] {
+##         lappend fileList $fileName
+##     }
+## 
+##     # Now look for any sub direcories in the current directory
+##     foreach dirName [glob -nocomplain -type {d  r} -path $basedir *] {
+##         # Recusively call the routine on the sub directory and append any
+##         # new files to the results
+##         set subDirList [findFiles $dirName $pattern]
+##         if { [llength $subDirList] > 0 } {
+##             foreach subDirFile $subDirList {
+##                 lappend fileList $subDirFile
+##             }
+##         }
+##     }
+##     return $fileList
+##  }
+# set ip_xci [findFiles $SRC_DIR "*.xci"]
+# if {[llength $ip_xci]} {
+#     # Read the IP files
+#     read_ip $ip_xci
+#     set ip_cores [get_ips -all]
+# 
+#     # Check for any issues with the IP cores
+#     foreach ip $ip_cores {
+#         if {[get_property IS_LOCKED [get_ips $ip]]} {
+#             set errMsg [get_property LOCK_DETAILS [get_ips $ip]]
+#             return -code error "ERROR: Cannot read $ip: $errMsg"
+#         }
+#     }
+# 
+#     # Synthesize the IP cores
+#     synth_ip [get_files $ip_xci]
+# } else {
+#     puts "No .xci files found. Skipping."
+# }
+No .xci files found. Skipping.
+INFO: [Common 17-206] Exiting Vivado at Fri Aug 14 17:34:29 2026...

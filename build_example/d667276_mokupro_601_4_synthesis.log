@@ -1,0 +1,721 @@
+#-----------------------------------------------------------
+# Vivado v2022.2_AR000035739_AR000034905 (64-bit)
+# SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Fri Aug 14 17:34:41 2026
+# Process ID: 3695957
+# Current directory: /workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/output
+# Command line: vivado -log synthesis.log -nojournal -mode batch -source /deps/compile/scripts/tcl/synth.tcl -tclargs /deps/compile 30 xczu9eg-ffvc900-2-e mokupro /workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/src /deps/checkpoints/ipcores/mokupro 8 4 8 4 4 4 4 4 null
+# Log file: /workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/output/synthesis.log
+# Journal file: 
+# Running On: mcc-workers-74d68884bd-cxrrf, OS: Linux, CPU Frequency: 3393.622 MHz, CPU Physical cores: 28, Host memory: 118146 MB
+#-----------------------------------------------------------
+source /deps/compile/scripts/tcl/synth.tcl
+# set TOP_DIR [lindex $argv 0]
+# set HW_VER [lindex $argv 1]
+# set HG_PART [lindex $argv 2]
+# set HG_BOARD [lindex $argv 3]
+# set SRC_DIR [lindex $argv 4]
+# set IP_DCP_DIR [lindex $argv 5]
+# set NUM_INS [lindex $argv 6]
+# set NUM_OUTS [lindex $argv 7]
+# set NUM_SLOT_AIN [lindex $argv 8]
+# set NUM_SLOT_AOUT [lindex $argv 9]
+# set NUM_CBUFS [lindex $argv 10]
+# set IN_MODE [lindex $argv 11]
+# set OUT_MODE [lindex $argv 12]
+# set NUM_LOOPS [lindex $argv 13]
+# set VARIANT [lindex $argv 14]
+# set NUM_SLOT_AIN [expr $NUM_SLOT_AIN + $NUM_LOOPS]
+# set_part $HG_PART
+INFO: [Coretcl 2-1500] The part has been set to 'xczu9eg-ffvc900-2-e' for the current project only. Run set_part -help for more details. To evaluate different speed grades in the current design, use the set_speed_grade command, or use the open_checkpoint -part command to change the part used by an existing checkpoint design.
+# read_vhdl -vhdl2008 [glob $TOP_DIR/lib/hdl/*.vhd]
+# read_vhdl -vhdl2008 [glob $TOP_DIR/lib/src/Top.vhd]
+# read_vhdl -vhdl2008 [glob $TOP_DIR/lib/hdl/moku/*.vhd] -library Moku
+# set INCLUDE_ENTITY_DEFN 1
+# source $TOP_DIR/utilities/utilities.tcl
+## proc findFiles { basedir pattern } {
+## 
+##     # Fix the directory name, this ensures the directory name is in the
+##     # native format for the platform and contains a final directory seperator
+##     set basedir [string trimright [file join [file normalize $basedir] { }]]
+##     set fileList {}
+## 
+##     # Look in the current directory for matching files, -type {f r}
+##     # means ony readable normal files are looked at, -nocomplain stops
+##     # an error being thrown if the returned list is empty
+##     foreach fileName [glob -nocomplain -type {f r} -path $basedir $pattern] {
+##         lappend fileList $fileName
+##     }
+## 
+##     # Now look for any sub direcories in the current directory
+##     foreach dirName [glob -nocomplain -type {d  r} -path $basedir *] {
+##         # Recusively call the routine on the sub directory and append any
+##         # new files to the results
+##         set subDirList [findFiles $dirName $pattern]
+##         if { [llength $subDirList] > 0 } {
+##             foreach subDirFile $subDirList {
+##                 lappend fileList $subDirFile
+##             }
+##         }
+##     }
+##     return $fileList
+##  }
+# set VHDL_SRC [findFiles $SRC_DIR "*.vhd"]
+# if {[llength $VHDL_SRC] > 0} {
+#     # Prevent re-definition of CustomWrapper; 
+#     # without this check, Vivado or this suite of 
+#     # scripts will not report any errors and will 
+#     # still generate the deployable bitstream.
+#     # see https://liquidinstruments.atlassian.net/browse/SW-398
+#     foreach VHDL_FILE $VHDL_SRC {
+#         if {[catch {exec grep -qi "entity CustomWrapper is" $VHDL_FILE} result] == 0} {
+#             puts "Error: The entity 'CustomWrapper' is already defined in the library."
+#             exit 1
+#         }
+#     }
+#     read_vhdl -vhdl2008 $VHDL_SRC
+# }
+# set VERILOG_SRC [findFiles $SRC_DIR "*.v"]
+# if {[llength $VERILOG_SRC] > 0} {
+#     read_verilog $VERILOG_SRC
+#     set_property file_type {SystemVerilog} [get_files $VERILOG_SRC]
+#     foreach V_FILE $VERILOG_SRC {
+#         if {[catch {exec grep -qi "module CustomWrapper" $V_FILE} result] == 0} {
+#             set INCLUDE_ENTITY_DEFN 0
+#         }
+#     }
+# }
+# if {$INCLUDE_ENTITY_DEFN == 1} {
+#     read_vhdl -vhdl2008 [glob $TOP_DIR/lib/src/CustomWrapper.vhd]
+# }
+# set ip_dcps [glob -nocomplain $IP_DCP_DIR/*.dcp *.dcp]
+# puts $ip_dcps
+/deps/checkpoints/ipcores/mokupro/Counter_32.dcp /deps/checkpoints/ipcores/mokupro/AddSubtract_16.dcp /deps/checkpoints/ipcores/mokupro/CIC_Dec_3Ordx8.dcp /deps/checkpoints/ipcores/mokupro/FFT_1024.dcp /deps/checkpoints/ipcores/mokupro/SineGen_48.dcp /deps/checkpoints/ipcores/mokupro/FFT_65536.dcp /deps/checkpoints/ipcores/mokupro/FIR_Filter_7coef.dcp /deps/checkpoints/ipcores/mokupro/Cordic_Translate_16.dcp
+# foreach dcp $ip_dcps {
+# 	read_checkpoint $dcp
+# }
+Command: read_checkpoint /deps/checkpoints/ipcores/mokupro/Counter_32.dcp
+Command: read_checkpoint /deps/checkpoints/ipcores/mokupro/AddSubtract_16.dcp
+Command: read_checkpoint /deps/checkpoints/ipcores/mokupro/CIC_Dec_3Ordx8.dcp
+Command: read_checkpoint /deps/checkpoints/ipcores/mokupro/FFT_1024.dcp
+Command: read_checkpoint /deps/checkpoints/ipcores/mokupro/SineGen_48.dcp
+CRITICAL WARNING: [Vivado 12-5469] The design checkpoint file '/deps/checkpoints/ipcores/mokupro/SineGen_48.dcp' was generated for an IP by an out of context synthesis run and should not directly be used as a source in a Vivado flow. It is strongly recommended that that the original IP source file (.xci) be used.
+Command: read_checkpoint /deps/checkpoints/ipcores/mokupro/FFT_65536.dcp
+Command: read_checkpoint /deps/checkpoints/ipcores/mokupro/FIR_Filter_7coef.dcp
+Command: read_checkpoint /deps/checkpoints/ipcores/mokupro/Cordic_Translate_16.dcp
+# set_property top Instrument [current_fileset]
+# set_property top_lib xil_defaultlib [current_fileset]
+# set_property top_arch Custom [current_fileset]
+# set_property top_file Top [current_fileset]
+# set_property generic "HW_VER=$HW_VER NUM_INS=$NUM_INS NUM_OUTS=$NUM_OUTS NUM_CBUFS=$NUM_CBUFS NUM_SLOT_AOUT=$NUM_SLOT_AOUT NUM_SLOT_AIN=$NUM_SLOT_AIN IN_MODE=$IN_MODE OUT_MODE=$OUT_MODE NUM_LOOP=$NUM_LOOPS VARIANT=$VARIANT" [current_fileset]
+# synth_design -mode out_of_context -flatten_hierarchy rebuilt
+Command: synth_design -mode out_of_context -flatten_hierarchy rebuilt
+Starting synth_design
+Using part: xczu9eg-ffvc900-2-e
+Top: Instrument
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu9eg'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu9eg'
+INFO: [Common 17-1540] The version limit for your license is '2022.10' and has expired for new software. A version limit expiration means that, although you may be able to continue to use the current version of tools or IP with this license, you will not be eligible for new releases.
+INFO: [Device 21-403] Loading part xczu9eg-ffvc900-2-e
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 3695977
+INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [/opt/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2934.836 ; gain = 237.828 ; free physical = 25857 ; free virtual = 152671
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2197.604; parent = 2032.610; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3900.934; parent = 2937.809; children = 963.125
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'Instrument' [/deps/compile/lib/src/Top.vhd:8]
+	Parameter HW_VER bound to: 30 - type: integer 
+	Parameter NUM_SLOT_AIN bound to: 12 - type: integer 
+	Parameter NUM_SLOT_AOUT bound to: 4 - type: integer 
+	Parameter NUM_CBUFS bound to: 4 - type: integer 
+	Parameter NUM_INS bound to: 8 - type: integer 
+	Parameter NUM_OUTS bound to: 4 - type: integer 
+	Parameter IN_MODE bound to: 4 - type: integer 
+	Parameter OUT_MODE bound to: 4 - type: integer 
+	Parameter NUM_LOOP bound to: 4 - type: integer 
+	Parameter VARIANT bound to: null - type: string 
+INFO: [Synth 8-638] synthesizing module 'SPIMemoryMap' [/deps/compile/lib/hdl/moku/MemoryMap.vhd:37]
+	Parameter NUM_REGS bound to: 17 - type: integer 
+	Parameter NUM_META_REGS bound to: 3 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'SPIMemoryMap' (0#1) [/deps/compile/lib/hdl/moku/MemoryMap.vhd:37]
+INFO: [Synth 8-638] synthesizing module 'CustomWrapper' [/deps/compile/lib/src/CustomWrapper.vhd:5]
+INFO: [Synth 8-638] synthesizing module 'NCO' [/workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/src/NCO.vhd:26]
+INFO: [Synth 8-638] synthesizing module 'sine_bram' [/workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/src/Sine_BRAM.vhd:13]
+INFO: [Synth 8-256] done synthesizing module 'sine_bram' (0#1) [/workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/src/Sine_BRAM.vhd:13]
+WARNING: [Synth 8-7193] Integer conversion function is truncating input [/workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/src/NCO.vhd:107]
+INFO: [Synth 8-256] done synthesizing module 'NCO' (0#1) [/workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/src/NCO.vhd:26]
+INFO: [Synth 8-256] done synthesizing module 'CustomWrapper' (0#1) [/deps/compile/lib/src/CustomWrapper.vhd:5]
+INFO: [Synth 8-256] done synthesizing module 'Instrument' (0#1) [/deps/compile/lib/src/Top.vhd:8]
+WARNING: [Synth 8-6014] Unused sequential element StatusWriteStrobe_reg was removed.  [/deps/compile/lib/hdl/moku/MemoryMap.vhd:178]
+WARNING: [Synth 8-6014] Unused sequential element StatusWriteStrobeDly_reg was removed.  [/deps/compile/lib/hdl/moku/MemoryMap.vhd:180]
+WARNING: [Synth 8-6014] Unused sequential element StatusValue_reg[0] was removed.  [/deps/compile/lib/hdl/moku/MemoryMap.vhd:185]
+WARNING: [Synth 8-6014] Unused sequential element StatusValue_reg[1] was removed.  [/deps/compile/lib/hdl/moku/MemoryMap.vhd:185]
+WARNING: [Synth 8-6014] Unused sequential element StatusValue_reg[2] was removed.  [/deps/compile/lib/hdl/moku/MemoryMap.vhd:185]
+WARNING: [Synth 8-6014] Unused sequential element StatusReadStrobe_reg was removed.  [/deps/compile/lib/hdl/moku/MemoryMap.vhd:201]
+WARNING: [Synth 8-6014] Unused sequential element norm_dc_reg_reg was removed.  [/workspace/04b3d1b6-d294-4996-a5a3-364edbbc29c5/src/NCO.vhd:88]
+WARNING: [Synth 8-3848] Net OutputB in module/entity CustomWrapper does not have driver. [/deps/compile/lib/src/CustomWrapper.vhd:19]
+WARNING: [Synth 8-3848] Net OutputC in module/entity CustomWrapper does not have driver. [/deps/compile/lib/src/CustomWrapper.vhd:20]
+WARNING: [Synth 8-3848] Net OutputD in module/entity CustomWrapper does not have driver. [/deps/compile/lib/src/CustomWrapper.vhd:21]
+WARNING: [Synth 8-3848] Net OutputInterpA in module/entity CustomWrapper does not have driver. [/deps/compile/lib/src/CustomWrapper.vhd:23]
+WARNING: [Synth 8-3848] Net OutputInterpB in module/entity CustomWrapper does not have driver. [/deps/compile/lib/src/CustomWrapper.vhd:24]
+WARNING: [Synth 8-3848] Net OutputInterpC in module/entity CustomWrapper does not have driver. [/deps/compile/lib/src/CustomWrapper.vhd:25]
+WARNING: [Synth 8-3848] Net OutputInterpD in module/entity CustomWrapper does not have driver. [/deps/compile/lib/src/CustomWrapper.vhd:26]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[0][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[1][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[2][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[3][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[4][Data] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[4][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[5][Data] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[5][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[6][Data] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[6][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[7][Data] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AInSelect_reg[7][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-6014] Unused sequential element AOut_reg[1][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:117]
+WARNING: [Synth 8-6014] Unused sequential element AOut_reg[2][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:117]
+WARNING: [Synth 8-6014] Unused sequential element AOut_reg[3][Valid] was removed.  [/deps/compile/lib/src/Top.vhd:117]
+WARNING: [Synth 8-3936] Found unconnected internal register 'AInSelect_reg[0][Data]' and it is trimmed from '64' to '16' bits. [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-3936] Found unconnected internal register 'AInSelect_reg[1][Data]' and it is trimmed from '64' to '16' bits. [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-3936] Found unconnected internal register 'AInSelect_reg[2][Data]' and it is trimmed from '64' to '16' bits. [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-3936] Found unconnected internal register 'AInSelect_reg[3][Data]' and it is trimmed from '64' to '16' bits. [/deps/compile/lib/src/Top.vhd:64]
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][63] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][62] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][61] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][60] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][59] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][58] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][57] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][56] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][55] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][54] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][53] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][52] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][51] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][50] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][49] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][48] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][47] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][46] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][45] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][44] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][43] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][42] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][41] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][40] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][39] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][38] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][37] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][36] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][35] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][34] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][33] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][32] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][31] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][30] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][29] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][28] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][27] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][26] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][25] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][24] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][23] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][22] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][21] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][20] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][19] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][18] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][17] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][16] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][15] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][14] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][13] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][12] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][11] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][10] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][9] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][8] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][7] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][6] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][5] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][4] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][3] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][2] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][1] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Data][0] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Trigger][7] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Trigger][6] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Trigger][5] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Trigger][4] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Trigger][3] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Trigger][2] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Trigger][1] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Trigger][0] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Marker] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][31] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][30] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][29] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][28] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][27] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][26] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][25] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][24] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][23] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][22] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][21] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][20] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][19] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][18] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][17] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][16] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][15] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][14] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][13] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][12] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][11] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][10] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][9] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][8] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][7] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][6] driven by constant 0
+WARNING: [Synth 8-3917] design Instrument has port BufData[0][Meta][0][5] driven by constant 0
+INFO: [Common 17-14] Message 'Synth 8-3917' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-7129] Port OutputB[15] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[14] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[13] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[12] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[11] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[10] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[9] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[8] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[7] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[6] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[5] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[4] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[3] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[2] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[1] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputB[0] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[15] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[14] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[13] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[12] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[11] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[10] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[9] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[8] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[7] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[6] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[5] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[4] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[3] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[2] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[1] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputC[0] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[15] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[14] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[13] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[12] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[11] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[10] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[9] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[8] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[7] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[6] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[5] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[4] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[3] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[2] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[1] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputD[0] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputInterpA in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputInterpB in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputInterpC in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port OutputInterpD in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[31] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[30] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[29] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[28] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[27] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[26] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[25] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[24] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[23] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[22] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[21] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[20] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[19] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[18] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[17] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[16] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[15] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[14] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[13] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[12] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[11] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[10] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[9] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[8] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[7] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[6] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[5] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[4] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[3] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[2] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[1] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Sync[0] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[15] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[14] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[13] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[12] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[11] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[10] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[9] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[8] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[7] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[6] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[5] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[4] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[3] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[2] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[1] in module CustomWrapper is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InputC[0] in module CustomWrapper is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 3070.789 ; gain = 373.781 ; free physical = 25890 ; free virtual = 152717
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2197.604; parent = 2032.610; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4033.918; parent = 3070.793; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 3085.633 ; gain = 388.625 ; free physical = 25887 ; free virtual = 152714
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2197.604; parent = 2032.610; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4048.762; parent = 3085.637; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 3085.633 ; gain = 388.625 ; free physical = 25887 ; free virtual = 152714
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2197.604; parent = 2032.610; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4048.762; parent = 3085.637; children = 963.125
+---------------------------------------------------------------------------------
+CRITICAL WARNING: [Project 1-840] The design checkpoint file '/deps/checkpoints/ipcores/mokupro/SineGen_48.dcp' was generated for an IP by an out of context synthesis run and should not be used directly as a source in a Vivado flow. Constraints and other files related to the IP are only stored in the xci/xcix, not the checkpoint. It is strongly recommended that the original IP source file (.xci/.xcix) be used.
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3085.633 ; gain = 0.000 ; free physical = 25879 ; free virtual = 152707
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3199.590 ; gain = 0.000 ; free physical = 25812 ; free virtual = 152639
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3200.598 ; gain = 0.000 ; free physical = 25811 ; free virtual = 152638
+INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [/opt/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 3200.598 ; gain = 503.590 ; free physical = 25866 ; free virtual = 152703
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2197.604; parent = 2032.610; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4131.711; parent = 3168.586; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu9eg-ffvc900-2-e
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 3200.598 ; gain = 503.590 ; free physical = 25866 ; free virtual = 152703
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2197.604; parent = 2032.610; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4131.711; parent = 3168.586; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 3200.598 ; gain = 503.590 ; free physical = 25865 ; free virtual = 152702
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2197.604; parent = 2032.610; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4131.711; parent = 3168.586; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:12 . Memory (MB): peak = 3200.598 ; gain = 503.590 ; free physical = 25821 ; free virtual = 152668
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2207.723; parent = 2043.006; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4131.711; parent = 3168.586; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   20 Bit       Adders := 1     
+	   2 Input   18 Bit       Adders := 1     
+	   2 Input   16 Bit       Adders := 19    
+	   3 Input   16 Bit       Adders := 12    
+	   4 Input   16 Bit       Adders := 4     
+	   2 Input    5 Bit       Adders := 1     
++---Registers : 
+	              128 Bit    Registers := 4     
+	               32 Bit    Registers := 27    
+	               30 Bit    Registers := 1     
+	               24 Bit    Registers := 1     
+	               17 Bit    Registers := 3     
+	               16 Bit    Registers := 18    
+	                5 Bit    Registers := 1     
+	                3 Bit    Registers := 3     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 15    
++---Multipliers : 
+	              14x31  Multipliers := 1     
++---ROMs : 
+	                    ROMs := 1     
++---Muxes : 
+	   2 Input  128 Bit        Muxes := 4     
+	   2 Input   32 Bit        Muxes := 4     
+	   3 Input   32 Bit        Muxes := 1     
+	   4 Input   32 Bit        Muxes := 1     
+	   2 Input   17 Bit        Muxes := 2     
+	   2 Input   16 Bit        Muxes := 5     
+	   2 Input    3 Bit        Muxes := 2     
+	   3 Input    1 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 20    
+	   5 Input    1 Bit        Muxes := 20    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 2520 (col length:168)
+BRAMs: 1824 (col length: RAMB18 168 RAMB36 84)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+DSP Report: Generating DSP U_NCO/r_pmod_accumulator1, operation Mode is: A*(B:0x1001).
+DSP Report: operator U_NCO/r_pmod_accumulator1 is absorbed into DSP U_NCO/r_pmod_accumulator1.
+DSP Report: Generating DSP U_NCO/v_frequency_reg_reg, operation Mode is: (C:0x1e8480)+A*(B:0xbcd).
+DSP Report: register U_NCO/v_frequency_reg_reg is absorbed into DSP U_NCO/v_frequency_reg_reg.
+DSP Report: operator U_NCO/arg is absorbed into DSP U_NCO/v_frequency_reg_reg.
+DSP Report: operator U_NCO/arg is absorbed into DSP U_NCO/v_frequency_reg_reg.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:17 . Memory (MB): peak = 3200.598 ; gain = 503.590 ; free physical = 25782 ; free virtual = 152641
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2234.871; parent = 2070.309; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4131.711; parent = 3168.586; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++--------------+-------------------------+---------------+----------------+
+|Module Name   | RTL Object              | Depth x Width | Implemented As | 
++--------------+-------------------------+---------------+----------------+
+|CustomWrapper | U_NCO/r_lut_address_reg | 65536x16      | Block RAM      | 
+|CustomWrapper | U_NCO/r_lut_address_reg | 65536x16      | Block RAM      | 
++--------------+-------------------------+---------------+----------------+
+
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------+--------------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping              | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+--------------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|NCO         | A*(B:0x1001)             | 16     | 14     | -      | -      | 30     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|NCO         | (C:0x1e8480)+A*(B:0xbcd) | 16     | 12     | 21     | -      | 29     | 0    | 0    | 0    | -    | -     | 0    | 1    | 
++------------+--------------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:21 ; elapsed = 00:00:27 . Memory (MB): peak = 3682.238 ; gain = 985.230 ; free physical = 25156 ; free virtual = 152014
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2877.037; parent = 2712.479; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4645.367; parent = 3682.242; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:21 ; elapsed = 00:00:27 . Memory (MB): peak = 3682.238 ; gain = 985.230 ; free physical = 25155 ; free virtual = 152013
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2878.186; parent = 2713.627; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4645.367; parent = 3682.242; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_4 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_5 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_6 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_7 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_8 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_9 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_10 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_11 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_12 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_13 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_14 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_0_15 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_4 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_5 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_6 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_7 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_8 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_9 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_10 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_11 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_12 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_13 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_14 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance DUT/U_NCO/r_lut_address_reg_1_15 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:22 ; elapsed = 00:00:27 . Memory (MB): peak = 3698.254 ; gain = 1001.246 ; free physical = 25167 ; free virtual = 152026
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2878.186; parent = 2713.627; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4661.383; parent = 3698.258; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:24 ; elapsed = 00:00:30 . Memory (MB): peak = 3698.254 ; gain = 1001.246 ; free physical = 25173 ; free virtual = 152032
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2878.186; parent = 2713.627; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4661.383; parent = 3698.258; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:24 ; elapsed = 00:00:30 . Memory (MB): peak = 3698.254 ; gain = 1001.246 ; free physical = 25173 ; free virtual = 152032
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2878.186; parent = 2713.627; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4661.383; parent = 3698.258; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:24 ; elapsed = 00:00:30 . Memory (MB): peak = 3698.254 ; gain = 1001.246 ; free physical = 25173 ; free virtual = 152032
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2878.186; parent = 2713.627; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4661.383; parent = 3698.258; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:24 ; elapsed = 00:00:30 . Memory (MB): peak = 3698.254 ; gain = 1001.246 ; free physical = 25173 ; free virtual = 152032
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2878.186; parent = 2713.627; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4661.383; parent = 3698.258; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:24 ; elapsed = 00:00:30 . Memory (MB): peak = 3698.254 ; gain = 1001.246 ; free physical = 25173 ; free virtual = 152032
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2878.186; parent = 2713.627; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4661.383; parent = 3698.258; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:24 ; elapsed = 00:00:31 . Memory (MB): peak = 3698.254 ; gain = 1001.246 ; free physical = 25173 ; free virtual = 152032
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2878.186; parent = 2713.627; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4661.383; parent = 3698.258; children = 963.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|NCO         | (A'*B)'     | 30     | 13     | -      | -      | 30     | 1    | 0    | -    | -    | -     | 0    | 1    | 
+|NCO         | (C+A'*B)'   | 16     | 12     | 21     | -      | 29     | 1    | 0    | 0    | -    | -     | 0    | 1    | 
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+----------------+------+
+|      |Cell            |Count |
++------+----------------+------+
+|1     |CARRY8          |    29|
+|2     |DSP_ALU         |     2|
+|3     |DSP_A_B_DATA    |     2|
+|4     |DSP_C_DATA      |     2|
+|6     |DSP_MULTIPLIER  |     2|
+|7     |DSP_M_DATA      |     2|
+|8     |DSP_OUTPUT      |     2|
+|9     |DSP_PREADD      |     2|
+|10    |DSP_PREADD_DATA |     2|
+|11    |LUT1            |    12|
+|12    |LUT2            |   190|
+|13    |LUT3            |   101|
+|14    |LUT4            |    62|
+|15    |LUT5            |    97|
+|16    |LUT6            |   410|
+|17    |RAMB36E2        |    32|
+|48    |FDRE            |   954|
++------+----------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:24 ; elapsed = 00:00:31 . Memory (MB): peak = 3698.254 ; gain = 1001.246 ; free physical = 25173 ; free virtual = 152032
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2878.186; parent = 2713.627; children = 164.994
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4661.383; parent = 3698.258; children = 963.125
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 2242 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:23 ; elapsed = 00:00:29 . Memory (MB): peak = 3698.254 ; gain = 886.281 ; free physical = 25219 ; free virtual = 152078
+Synthesis Optimization Complete : Time (s): cpu = 00:00:24 ; elapsed = 00:00:31 . Memory (MB): peak = 3698.262 ; gain = 1001.246 ; free physical = 25218 ; free virtual = 152077
+INFO: [Project 1-571] Translating synthesized netlist
+CRITICAL WARNING: [Project 1-840] The design checkpoint file '/deps/checkpoints/ipcores/mokupro/SineGen_48.dcp' was generated for an IP by an out of context synthesis run and should not be used directly as a source in a Vivado flow. Constraints and other files related to the IP are only stored in the xci/xcix, not the checkpoint. It is strongly recommended that the original IP source file (.xci/.xcix) be used.
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3698.262 ; gain = 0.000 ; free physical = 25321 ; free virtual = 152180
+INFO: [Netlist 29-17] Analyzing 31 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3732.172 ; gain = 0.000 ; free physical = 25256 ; free virtual = 152115
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2 instances were transformed.
+  DSP48E2 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 2 instances
+
+Synth Design complete, checksum: 2ea7b32c
+INFO: [Common 17-83] Releasing license: Synthesis
+62 Infos, 235 Warnings, 2 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:31 ; elapsed = 00:00:40 . Memory (MB): peak = 3732.172 ; gain = 2009.277 ; free physical = 25514 ; free virtual = 152373
+# write_edif -force custom.edf
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3732.172 ; gain = 0.000 ; free physical = 25514 ; free virtual = 152373
+INFO: [Common 17-206] Exiting Vivado at Fri Aug 14 17:35:27 2026...
