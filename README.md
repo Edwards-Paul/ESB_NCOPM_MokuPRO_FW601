@@ -63,7 +63,7 @@ custom VHDL instruments for Moku platforms.
    the project in order:
    - `sine_bram.vhd`
    - `nco.vhd`
-   - `esb_top.vhd` (set as the top-level entity)
+   - `top.vhd` (set as the top-level entity)
 
 4. **Set the top-level entity** to `esb_top` in the project settings.
 
