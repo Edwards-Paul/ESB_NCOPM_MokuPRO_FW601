@@ -42,6 +42,8 @@ custom VHDL instruments for Moku platforms.
 
 ### Minimal build instructions
 
+This assumes building from the VDH files - for the example build on FW 601, skip to Step 7.
+
 1. **Open the IDE** at https://compile.liquidinstruments.com/ and
    sign in with your Liquid Instruments account.
 
@@ -75,7 +77,7 @@ custom VHDL instruments for Moku platforms.
 
 8. **Connect in MiM.** Assign the NCO/PM instrument to a slot,
    route the Laser Lock Box PI output to the NCO control input,
-   and route the fixed-frequency LO copy to the PM input, as
+   and route the NCO/PM output to the PM input to track the modulation-carrier tone, as
    described in Section II A of the paper.
 
 For full MCC documentation see:
