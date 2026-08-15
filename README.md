@@ -13,16 +13,6 @@
 | NCO frequency range | 1 – 100 MHz |
 | PM index scale factor `S_PM` | 1 (adjustable generic) |
 
-The NCO frequency-code spacing is
-
-$$\Delta f_\mathrm{NCO} = \frac{f_\mathrm{clock}}{2^P}
-= \frac{312.5\ \mathrm{MHz}}{65536} \approx 4.77\ \mathrm{kHz},$$
-
-corresponding to an equivalent cavity-displacement code step of
-approximately 10 pm for the 59.0 cm measurement cavity described
-in the paper.
-This is divided by two on nearest-neighbor rounding.
-
 ---
 
 ## Build example — firmware 601
